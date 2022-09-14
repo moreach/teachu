@@ -14,7 +14,7 @@ Unfortunatly there are two unsolved problems:
 2. build admin tool (insite the ./teachu-admin/teachu_admin dir): `mvn clean package -DskipTests=true`
 3. run with docker: `docker-compose up`
 4. stop after db startup: `[ctrl + c]`
-5 rerun with docker: `docker-compose up`
+5. rerun with docker: `docker-compose up`
 
 # Git submodules
 ### Clone
