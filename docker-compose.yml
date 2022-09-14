@@ -1,0 +1,88 @@
+version: '3.9'
+
+services:
+  teachu-mysql-db:
+    container_name: teachu-mysql-db
+    build:
+      context: .
+      dockerfile: teachu-api/docker/mysql/Dockerfile
+      args:
+        - STARTUP_SCRIPTS_DIR=./teachu-api/docs
+    environment:
+      - MYSQL_ROOT_PASSWORD=''
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true # change when using as prod
+      - MYSQL_RANDOM_ROOT_PASSWORD=false
+      # custom user
+      - MYSQL_USER='dev'
+      - MYSQL_PASS='dev'
+    networks:
+      - net-teachu-data 
+    volumes: 
+      - vol-teachu-data:/var/lib/mysql
+
+  teachu-api:
+    container_name: teachu-api
+    build: "teachu-api"
+    depends_on:
+      - teachu-mysql-db
+    networks:
+      - net-teachu-data
+      - net-main-teachu
+    ports:
+      - "8080:8080"
+
+  teachu-client: 
+    container_name: teachu-client
+    build: 
+      context: teachu-client
+      dockerfile: Dockerfile
+      args:
+        - ngConfig=development
+    depends_on:
+      - teachu-api   
+      - teachu-mysql-db 
+    networks:
+      - net-main-teachu
+    ports:
+      - "80:80"
+    volumes:
+      - ./teachu-client/.nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./teachu-client/.nginx/mime.types:/etc/nginx/mime.types    
+
+  teachu-admin-server:
+    container_name: teachu-admin-server
+    build: "teachu-admin/teachu_admin/teachu_admin.server.app.war"
+    depends_on:
+      - teachu-mysql-db
+    networks:
+      - net-teachu-data
+      - net-teachu-admin
+    volumes:
+      - type: bind
+        source: ./teachu-admin/teachu_admin/docker/logs/server-log
+        target: /usr/local/tomcat/logs    
+
+  teachu-admin:
+    container_name: teachu-admin
+    build: "teachu-admin/teachu_admin/teachu_admin.ui.html.app.war"
+    depends_on:
+      - teachu-admin-server
+    # links:
+    #   - teachu-admin-server
+    networks:
+      - net-teachu-data
+      - net-teachu-admin
+    ports:
+      - "81:8080"
+    volumes:
+      - type: bind
+        source: ./teachu-admin/teachu_admin/docker/logs/ui-log
+        target: /usr/local/tomcat/logs      
+
+networks:
+  net-teachu-data:  
+  net-main-teachu: 
+  net-teachu-admin:
+
+volumes:
+  vol-teachu-data:
