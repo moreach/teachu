@@ -1,0 +1,9 @@
+[submodule "teachu-client"]
+	path = teachu-client
+	url = git@github.com:moreach/teachu-client.git
+[submodule "teachu-api"]
+	path = teachu-api
+	url = git@github.com:moreach/teachu-api.git
+[submodule "teachu-admin"]
+	path = teachu-admin
+	url = git@github.com:moreach/teachu-admin.git
