@@ -8,9 +8,9 @@ TeachU is a modern school management platform. It contains multiple layers of so
 This project was mostly created in the spare time of us four application developer apprentice. Due to this we could not implement the project in full usable scope, but this is a first presentation of our idea.  
 Our focus with this application were the students. It is extremly important that they find the UI appealing and easy to use.  
 
-**TeachU** [Here (michu.tech/teachu)](https://michu.tech/teachu/).  
+**TeachU** [Here (michu-tech.com/apps/teachu)](https://michu-tech.com/apps/teachu).  
 _Example Logins:_ (Parent) Peter.Pomp@super-domain.edu:test, other E-Mail-Addresses can be found in the class list and the password is always test.   
-**TeachU - Admin** [Here (michu.tech/teachu/admin)](https://michu.tech/teachu/admin/).   
+**TeachU - Admin** [Here (michu-tech.com/apps/teachu/admin)](https://michu-tech.com/apps/teachu/admin).   
 _Example Logins:_ (Admin) Andrea.Adams@teachu-school.ch:test, other E-Mail-Addresses can be found in the Users tab and the password is always test.  
 
 ### TeachU - Client
